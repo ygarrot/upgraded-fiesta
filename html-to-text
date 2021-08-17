@@ -1,0 +1,46 @@
+#!/usr/bin/env node
+
+const { htmlToText } = require('html-to-text');
+
+const option = {
+  wordwrap: 100,
+  baseElements: {
+    selectors: ['*']
+  },
+  selectors: [
+    { selector: '*', options: {trimEmptyLines:true, itemPrefix:'', trailingLineBreaks:2, leadingLineBreaks: 2, uppercase: false } },
+    { selector: 'h1', options: { uppercase: false } },
+    { selector: 'h2', options: { uppercase: false } },
+    { selector: 'h3', options: { uppercase: false } },
+    { selector: 'h4', options: { uppercase: false } },
+    { selector: 'h5', options: { uppercase: false } },
+    { selector: 'h6', options: { uppercase: false } },
+    { selector: 'table', options: { uppercaseHeaderCells: false } },
+    // { selector: 'img', format: 'skip' },
+    { selector: 'a', options: { ignoreHref: true } }
+  ]
+}
+
+// option.tables = interpretTables(argv.tables);
+
+let text = '';
+
+process.title = 'html-to-text';
+
+process.stdin.resume();
+process.stdin.setEncoding('utf8');
+process.stdin.on('data', function (data) {
+  text += data;
+});
+
+process.stdin.on('end', function () {
+  text = htmlToText(text, option);
+  process.stdout.write(text + '\n', 'utf-8');
+});
+
+function interpretTables (tables) {
+  if (!tables || tables === '' || tables === 'false') {
+    return [];
+  }
+  return tables === 'true' || tables.split(',');
+}
