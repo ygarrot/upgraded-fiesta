@@ -1,4 +1,5 @@
 # ag --nofilename -o0 -R ">([^<\n].*)<" --html | sed 's/>//g' | sed 's/<.*//g'
+# rg --json -i '[^:]placeholder="([^"])*"' src >test.json
 
 # for file in `find ./src -name "*.html"`; do
 # 	cat $file | ./html-to-text | ag "\S" | sed 's/\[.*\]//g'

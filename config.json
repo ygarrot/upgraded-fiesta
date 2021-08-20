@@ -1,0 +1,7 @@
+{
+	"properties": {
+		"en": "src/main/resources/i18n/messages.properties",
+		"fr": "src/main/resources/i18n/messages_fr.properties"
+	},
+	"result_trad_file": "./trad.json"
+}
